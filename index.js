@@ -3,7 +3,8 @@ require("dotenv").config();
 const app = express();
 const mongoose  = require("mongoose");
 const cors =  require("cors");
-const contactRoutes = require("./src/router/register.router")
+const Routes = require("./src/router/order.router")
+// console.log(process.env.Db_URL)
 const DATABASE = process.env.Db_URL;
 mongoose.set("strictQuery", true);
 mongoose
@@ -38,7 +39,7 @@ app.use((req, res, next) => {
   next(); // Proceed to the next middleware or route handler
 });
 
-app.use("/api/v1", contactRoutes);
+app.use("/api/v1", Routes);
 
 
 

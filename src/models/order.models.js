@@ -24,6 +24,9 @@ module.exports.orderModel = mongoose.model("orderdetail",new mongoose.Schema(
       type: String,
       trim: true,
     },
+    response: {
+      type: Object,
+    },
     status: {
       type: String,
       default : "Pending",
