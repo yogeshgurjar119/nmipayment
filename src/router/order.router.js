@@ -3,7 +3,7 @@ const { auth } = require("../middleware/auth.middleware");
 
 const {order,orderHistory} = require("../controller/order.controller");
 
-router.post("/order",auth,order);
+router.post("/order",order);
 router.post("/orderHistory",auth,orderHistory);
 
 module.exports = router;

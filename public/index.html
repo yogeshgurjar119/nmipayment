@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMI - PAYMENT</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="col-lg-6 col-xs-12 col-md-12 col-sm-12 col-12 g-0">
+        <div class="form-card-grid">
+
+                <p style="height: 30px; margin-top: 50px; width: 50%; color: white;  background-color: black">
+                    Billing Details
+                </p>
+                <div class="half left">
+                    <div>
+                        <label>First Name</label>
+                        <input type="text" id="firstname" placeholder="Please first name" required />
+                        &nbsp;&nbsp;
+
+                        <label>Last Name</label>
+                        <input type="text" id="lastname" placeholder="Please last name" required />
+                    </div>
+                    <div>
+
+                        <label>Mobile </label>
+                        <input type="text" id="mobile" placeholder="Please mobile number" required />
+                        &nbsp;&nbsp;
+
+                        <label>Email </label>
+                        <input type="email" id="email" placeholder="Please enter email" required />
+                    </div>
+                    <div>
+
+                        <label>Billing-Address 1</label>
+                        <input id="bill1" required />
+                        &nbsp;&nbsp;
+
+                        <label>Billing-Address 2</label>
+                        <input id="bill2" required />
+                    </div>
+                    <div>
+
+                        <label>Billing Country</label>
+                        <input id="country" required />
+                        &nbsp;&nbsp;
+
+                        <label>Billing State</label>
+                        <input id="state" required />
+                    </div>
+                    <div>
+                        <label>Billing City</label>
+                        <input id="city" required />
+                        &nbsp;&nbsp;
+
+                        <label>Billing Zipcode</label>
+                        <input id="zipcode" required />
+                    </div>
+                </div>
+                <p style="height: 30px; margin-top: 10px; width: 50%; color: white;  background-color: black">
+                    Product Details
+                </p>
+                <div class="half right">
+                    <label>Product</label>
+
+                    <select id="product" name="product" onchange="productValue()">
+                        <option value="100.00">Cloths</option>
+                        <option value="500.00">Smart Phone</option>
+                        <!-- Add more countries as needed -->
+                    </select>
+                    </br>
+                    <label>Unit Rate</label>
+                    <input id="rate" value="1" required disabled />
+                    <label>Total</label>
+                    <input id="rateTotal" value="100" required disabled />
+                </div>
+
+                <p style="height: 30px; margin-top: 10px; width: 50%; color: white;  background-color: black">
+                    Payment Details
+                </p>
+                <div class="half right">
+                    <label>Card No.</label>
+                    <input id="cardnumber" required />
+                    </br>
+
+                    <label>Card Expiry</label>
+                    <select id="expire-month" name="expire-month">
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <!-- Add more countries as needed -->
+                    </select>
+                    <select id="expire-year" name="expire-year">
+                        <option value="24">2024</option>
+                        <option value="25">2025</option>
+                        <option value="26">2026</option>
+                        <!-- Add more countries as needed -->
+                    </select>
+                    &nbsp;&nbsp;
+
+                    <label>Cvv</label>
+                    <input id="cvv" />
+                    </br>
+                    <label>Description</label>
+                    <textarea id="description" rows="3" cols="50" required></textarea>
+                </div>
+                <!-- </div> -->
+
+                <div class="message succ">
+                    <span class="text text-1">Success </span> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="text text-2">Payment Successfully</span>
+                </div>
+                <div class="message err">
+                    <span class="text text-3">Error </span>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="text text-4">Something went wrong</span>
+                </div>
+                <div class="message err1">
+                    <span class="text text-3" id="show"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;Something went wrong</span>
+                </div>
+            </br>
+        </br>
+
+                <!-- <button class="btn mt-5 p-3" style="background: #ffb74c; color: white" href="./qrPage.html"> -->
+                <button class="btn mt-2 p-3" type="submit" style="background: #0bc2eb; color: white" id="submitbtn"
+                    onclick="register()">
+                    Register
+                </button>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".succ").hide();
+            $(".err").hide();
+            $(".err1").hide();
+            // $("#show").text("err")
+
+        });
+        function productValue() {
+            var name = $('#product').val()
+            var update = $('#rateTotal').val(name)
+
+        }
+        function showToast(message, type) {
+            const toastContainer = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '1';
+            }, 10);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    toastContainer.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+
+        // Example usage:
+        // showToast('Success message', 'success');
+        // showToast('Error message', 'error');
+
+        function register() {
+            var fname = $('#firstname').val()
+            var lname = $('#lastname').val()
+            var email = $('#email').val()
+            var mobile = $('#mobile').val()
+            var bill1 = $('#bill1').val()
+            var bill2 = $('#bill2').val()
+            var country = $('#country').val()
+            var state = $('#state').val()
+            var city = $('#city').val()
+            var zipcode = $('#zipcode').val()
+
+            var cardnumber = $('#cardnumber').val()
+            var expire_month = $('#expire-month').val()
+            var expire_year = $('#expire-year').val()
+            var cvv = $('#cvv').val()
+            var description = $('#description').val()
+
+            var product = $('#product').val()
+
+
+            var message = $(".err1").hide();
+            if (!fname) {
+                var message = $(".err1").show();
+                  // showToast('Error message', 'error');
+                $("#show").text("Please enter first name");
+                return false;
+            }
+            if (!lname) {
+                var message = $(".err1").show();
+                $("#show").text("Please enter last name");
+                return false;
+            }
+            if (!email) {
+                var message = $(".err1").show();
+                $("#show").text("Please enter your email");
+                return false;
+            }
+            if (!mobile) {
+                var message = $(".err1").show();
+                $("#show").text("Please enter your mobile number");
+                return false;
+            }
+            if (!bill1) {
+                var message = $(".err1").show();
+                $("#show").text("Please enter bill address");
+                return false;
+            }
+            if (!bill2) {
+                var message = $(".err1").show();
+                $("#show").text("Please enter bill address");
+                return false;
+            }
+            if (!state) {
+                var message = $(".err1").show();
+                $("#show").text("Please enter your state");
+                return false;
+            }
+            if (!city) {
+                var message = $(".err1").show();
+                $("#show").text("Please enter your city");
+                return false;
+            }
+            if (!zipcode) {
+                var message = $(".err1").show();
+                $("#show").text("Please enter your zip code");
+                return false;
+            }
+            if (!product) {
+                var message = $(".err1").show();
+                $("#show").text("Please select product");
+                return false;
+            }
+            if (!cardnumber) {
+                var message = $(".err1").show();
+                $("#show").text("Please enter your card number");
+                return false;
+            }
+            if (!expire_month) {
+                var message = $(".err1").show();
+                $("#show").text("Please select expire month");
+                return false;
+            }
+            if (!expire_year) {
+                var message = $(".err1").show();
+                $("#show").text("Please select expire year");
+                return false;
+            }
+            // console.log(description);
+            if (!description) {
+                var message = $(".err1").show();
+                $("#show").text("Please enter payment description");
+                return false;
+            }
+
+            const card_expire = expire_month + expire_year;
+            var data = {
+                email: email,
+                contact: mobile,
+                firstname: fname,
+                lastname: lname,
+                address1: bill1,
+                address2: bill2,
+                country: country,
+                state: state,
+                city: city,
+                zipcode: zipcode,
+                cardnumber: cardnumber,
+                card_expire: card_expire,
+                cvv: cvv,
+                description: description,
+                amount: product,
+            }
+            data = JSON.stringify(data);
+            // var data = new FormData(form);
+            // console.log("...........formData",data);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:7000/api/v1/order",
+                data: data,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Methods": "*",
+                    "Access-Control-Allow-Origin": "*"
+                },
+                // processData: false,
+                // contentType: true,
+                dataType: 'json',
+                async: false,
+                beforeSend: function () {
+                    //   $('#submitbtn').html('<i class="fa-solid fa-spinner fa-spin"></i>');
+                    $('#submitbtn').attr("disabled", true);
+                },
+
+                success: function (data) {
+                    //   $('#message').html(data);
+                    console.log("_________success____________", data);
+                    if (data.success) {
+                    
+                        var message = $(".succ").show();
+                    } else {
+                        var message = $(".err1").show();
+                         $("#show").text(data.message);
+
+                        $('#submitbtn').prop('disabled', false);
+                        // location.reload();
+                    }
+                },
+                error: function (err) {
+                    var message = $(".err").show();
+                    $('#submitbtn').prop('disabled', false);
+                }
+                // complete: function () {
+                //   setTimeout(function () {
+                //     // $('#myform').trigger("reset");
+                //     $('#submitbtn').html('Submit');
+                //     // $('#submitbtn').attr("disabled", false);
+                //   }, 5000);
+                // }
+            });
+
+        }
+
+
+        var colors = new Array(
+            [62, 35, 255],
+            [60, 255, 60],
+            [255, 35, 98],
+            [45, 175, 230],
+            [255, 0, 255],
+            [255, 128, 0]);
+
+        var step = 0;
+        //color table indices for: 
+        // current color left
+        // next color left
+        // current color right
+        // next color right
+        var colorIndices = [0, 1, 2, 3];
+
+        //transition speed
+        var gradientSpeed = 0.002;
+
+        function updateGradient() {
+
+            if ($ === undefined) return;
+
+            var c0_0 = colors[colorIndices[0]];
+            var c0_1 = colors[colorIndices[1]];
+            var c1_0 = colors[colorIndices[2]];
+            var c1_1 = colors[colorIndices[3]];
+
+            var istep = 1 - step;
+            var r1 = Math.round(istep * c0_0[0] + step * c0_1[0]);
+            var g1 = Math.round(istep * c0_0[1] + step * c0_1[1]);
+            var b1 = Math.round(istep * c0_0[2] + step * c0_1[2]);
+            var color1 = "rgb(" + r1 + "," + g1 + "," + b1 + ")";
+
+            var r2 = Math.round(istep * c1_0[0] + step * c1_1[0]);
+            var g2 = Math.round(istep * c1_0[1] + step * c1_1[1]);
+            var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
+            var color2 = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
+
+            $('#gradient').css({
+                background: "-webkit-gradient(linear, left top, right top, from(" + color1 + "), to(" + color2 + "))"
+            }).css({
+                background: "-moz-linear-gradient(left, " + color1 + " 0%, " + color2 + " 100%)"
+            });
+
+            step += gradientSpeed;
+            if (step >= 1) {
+                step %= 1;
+                colorIndices[0] = colorIndices[1];
+                colorIndices[2] = colorIndices[3];
+
+                //pick two new target color indices
+                //do not pick the same as the current one
+                colorIndices[1] = (colorIndices[1] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
+                colorIndices[3] = (colorIndices[3] + Math.floor(1 + Math.random() * (colors.length - 1))) % colors.length;
+
+            }
+        }
+
+        // setInterval(updateGradient,10);
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

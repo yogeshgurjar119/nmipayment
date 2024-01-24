@@ -42,6 +42,7 @@ app.use((req, res, next) => {
 app.use("/api/v1", Routes);
 
 
+app.use(express.static("public"))
 
 app.listen(process.env.SERVER_PORT, () => {
   console.log(`Server Backend server is running on:- ${process.env.SERVER_PORT}`);
