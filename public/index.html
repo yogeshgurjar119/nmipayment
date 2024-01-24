@@ -310,8 +310,11 @@
                     //   $('#message').html(data);
                     console.log("_________success____________", data);
                     if (data.success) {
-                    
                         var message = $(".succ").show();
+                        setTimeout(function() {
+                        // Navigate to data.html
+                        window.location.href = "data.html";
+                        }, 3000);
                     } else {
                         var message = $(".err1").show();
                          $("#show").text(data.message);

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    
+    <title>API Data Display</title>
+  </head>
+  <body>
+    <table id="api-response-table" style="border: 0cqmin;">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Order ID</th>
+          <th>Transaction ID</th>
+          <th>Name</th>
+          <th>Addreess</th>
+          <th>Amount</th>
+          <th>State</th>
+          <th>City</th>
+          <th>CardNumber</th>
+
+          <!-- Add more headers based on your data structure -->
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <script>
+      // Simulated API response data
+      $(document).ready(function () {
+        // Make an API request (replace the URL with your API endpoint)
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:7000/api/v1/orderHistory",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Methods": "*",
+            "Access-Control-Allow-Origin": "*",
+          },
+          // processData: false,
+          // contentType: true,
+          dataType: "json",
+          async: false,
+          success: function (data) {
+            //   $('#message').html(data);
+            console.log("_________success____________", data);
+            const responseData = data.data;
+            var tableBody = $("#api-response-table tbody");
+            // Format the date using jQuery UI
+
+            // Loop through each item in the array
+            responseData.forEach(function (item) {
+              // Create a table row for each item
+              var tableRow = "<tr>";
+              tableRow += "<td>" + item.createdAt + "</td>";
+              tableRow += "<td>" + item.orderId + "</td>";
+              tableRow += "<td>" + item.transactionId + "</td>";
+              tableRow += "<td>" + item.contactId.firstname +item.contactId.lastname  + "</td>";
+              tableRow += "<td>" + item.contactId.billing.address1 + "</td>";
+              tableRow += "<td>" + item.amount + "</td>";
+              tableRow += "<td>" + item.contactId.billing.state + "</td>";
+              tableRow += "<td>" + item.contactId.billing.city + "</td>";
+
+              tableRow += "<td>" + item.paymentId.cardId + "</td>";
+
+
+
+              // Add more cells based on your data structure...
+
+              // Close the table row
+              tableRow += "</tr>";
+
+              // Append the table row to the table body
+              tableBody.append(tableRow);
+            });
+            if (data.success) {
+              apiResponse = {
+                data: data.data,
+              };
+            }
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
